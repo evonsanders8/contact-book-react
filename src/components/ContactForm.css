@@ -1,0 +1,32 @@
+.contact-form-label{
+display: inline-block;
+width: 100px;
+padding: 30px;
+text-align: left;
+
+}
+
+form{
+    width: 500px;
+    border: solid grey 1px;
+    justify-content: center;
+    padding: 100px;
+    align-items: center;
+    display: inline-block;
+}
+
+.div-holding-form{
+   border: solid orange 5px;
+   padding-left: 100px;
+}
+Input{
+    padding: 100px;
+    display: inline-block;
+
+}
+/* #contact-select{
+    width: 150px;
+} */
+MenuItem{
+    width: 150px;
+}

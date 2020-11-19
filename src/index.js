@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from "./components/App";
 
 
-ReactDOM.render(
 
-    <App />,
- 
-  document.getElementById('app')
+
+
+
+
+
+ReactDOM.render(<App />,document.getElementById('app')
 );
 
 // If you want to start measuring performance in your app, pass a function
