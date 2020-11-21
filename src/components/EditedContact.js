@@ -4,38 +4,31 @@ import "./ContactForm.css"
 import {fetchAPI} from "../api"
 
 
-
-const  ContactForm = (props) => {
+const Contact_Type = ["work", "personal", "other"];
+const  EditContactForm = (props) => {
     
-    const [contactType, setContactType] = useState("");
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const [address, setAddress] = useState("");
+    const {currentContact, clearEditContact, editContact} = props;
 
-    const Contact_Type = ["work", "personal", "other"];
-    const {addNewContact} = props;
-    console.log(props)
+    
+    const [name, setName] = useState(currentContact.name);
+    const [email, setEmail] = useState(currentContact.email);
+    const [phone, setPhone] = useState(currentContact.phone);
+    const [address, setAddress] = useState(currentContact.address);
+    const [contactType, setContactType] = useState(currentContact.contactType);
+   
+  
 
-    // useEffect(() => {
-    //     setName(props.name || '')
-    //     setEmail(props.email || '')
-    //     setPhone(props.phone || '')
-    //     setAddress(props.address || '')
-    //     setContactType(props.contactType || '')
-    //   }, [isCurrentContact])
+   // console.log(props)
 
-    const handleSubmit = ( event)=>{
-        event.preventDefault()
-    setContactType(event.target.value)
-    }
-    const clearForm =() => {
-        setAddress('')
-        setName('')
-        setContactType('')
-        setEmail('')
-        setPhone('')
-    }
+    useEffect(() => {
+        setName(currentContact.name )
+        setEmail(currentContact.email) 
+        setPhone(currentContact.phone )
+        setAddress(currentContact.address)
+        setContactType(currentContact.contactType)
+      }, [currentContact])
+
+    
     
     
     return <div className="div-holding-form">
@@ -49,21 +42,19 @@ const  ContactForm = (props) => {
         contactType
     }
 
- 
-            const url = 'https://univ-contact-book.herokuapp.com/api/contacts';
-                fetchAPI(url, "POST", bodyObj)
-                .then((response) => 
-                addNewContact(response.contact))
-                   // clearForm()
-                .catch((error) => {
-                    console.log(error)
-                });
-                clearForm()
-            
-        
+    const url = `https://univ-contact-book.herokuapp.com/api/contacts/${currentContact.id}`;
+
+        fetchAPI(url, "PATCH", bodyObj)
+          .then((response) => {
+            editContact(currentContact, response.contact);
+            clearEditContact();
+          })
+          .catch(console.error);
+      
+
 
     }}>
-   <h3>Create Contact</h3>  
+   <h3>Update Contact</h3> 
     <div>
     <InputLabel className="contact-form-label" 
     >Name</InputLabel>
@@ -123,7 +114,9 @@ const  ContactForm = (props) => {
     <Select
          
           value={contactType}
-          onChange={handleSubmit}
+          onChange={(event) => {
+              setContactType(event.target.value)
+          }}
         >
         {Contact_Type.map((contacttype,idx) => {
             return <MenuItem value={contacttype} key={idx}> {contacttype}</MenuItem>
@@ -133,7 +126,8 @@ const  ContactForm = (props) => {
          
     </div>
     <div>
-          <Button type="submit"> Create+</Button>
+          <Button> Update</Button>
+          <Button onClick={clearEditContact}>Undo</Button>
           </div>
     
 
@@ -145,4 +139,4 @@ const  ContactForm = (props) => {
     
 }
 
-export default ContactForm;
+export default EditContactForm;

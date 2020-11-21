@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,18 @@
   to {
     transform: rotate(360deg);
   }
+} */
+.contact-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  place-items: center;
+  margin: 40px 40px 20px 20px;
+}
+.search-bar {
+  width: 50%;
+  height: 20px;
+  margin: 5px;
 }
